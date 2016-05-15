@@ -17,28 +17,60 @@ block content
   div A fantastic guy to spend time with. I can assure you a life full of fun and surprises as long as you are with him. Below are some interesting facts:
   div [Please click on the image to see a description.]
   include gallery.html
+  div
+    li.pull-left Facebook: 
+      a(href='https://www.facebook.com/nakul.chakrapani')
+        https://www.facebook.com/nakul.chakrapani
+    li Linkedin:
+      a(href='https://www.linkedin.com/in/nakul-chakrapani-07979521')
+        https://www.linkedin.com/in/nakul-chakrapani-07979521
   if user
     div(ng-app='girlFinder')
       div(ng-controller='responseController', ng-init='init(#{JSON.stringify(user)}, #{JSON.stringify(response)})')
         form(ng-submit='createResponseObject()')
-          p Would you be interested in interacting with him? 
-            div
-              label.radio-inline
-                input.radio(type='radio', name='interested', ng-model='response.interested', value='no')
-                span No
-              label.radio-inline
-                input.radio(type='radio', name='interested', ng-model='response.interested', value='yes')
-                span Yes
-
-          p Would you like to ask him anything? 
-            input(type='text', ng-model='response.questions')
-
-          p A short intro of yourself?
-            input(type='textarea', ng-model='response.intro')
-
-          p Go for it: 
-            button.btn-primary(type='button', id='submit', ng-click='createResponseObject()') Good Luck!
-              i(class="em em---1")
+          table.table-pad
+            tr
+              td.text On a scale of 1-10 (10 being highest), please rate his profile!
+              td
+                select.form-control
+                  option(value='1') 1
+                  option(value='2') 2
+                  option(value='3') 3
+                  option(value='4') 4
+                  option(value='5') 5
+                  option(value='6') 6
+                  option(value='7') 7
+                  option(value='8') 8
+                  option(value='9') 9
+                  option(value='10') 10
+            tr
+              td.text Would you like to go out for a cup of coffee with him?
+              td
+                label.radio-inline
+                  input.radio(type='radio', name='coffee', ng-model='response.coffe', value='no')
+                  span No
+                label.radio-inline
+                  input.radio(type='radio', name='coffee', ng-model='response.coffee', value='notSure')
+                  span Not Sure
+                label.radio-inline
+                  input.radio(type='radio', name='coffee', ng-model='response.coffee', value='maybe')
+                  span May be
+                label.radio-inline
+                  input.radio(type='radio', name='coffee', ng-model='response.coffee', value='yes')
+                  span Yes!
+            tr
+              td.text Would you like to ask him anything? 
+              td 
+                textarea.form-control(type='text', ng-model='response.questions')
+            tr
+              td.text A short intro of yourself?
+              td
+                textarea.form-control(type="text", ng-model='response.intro')
+            tr
+              td.text Ready to send? 
+              td
+                button.btn-primary.button-pad(type='button', id='submit', ng-click='createResponseObject()') Good Luck!
+                  i(class="em em---1")
   else
     p Please login to express interest
       a(href='/auth/facebook'): img(src='/images/login-with-facebook.png' width='154' height='22')

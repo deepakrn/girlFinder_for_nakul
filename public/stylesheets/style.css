@@ -21,3 +21,16 @@ h3 {
   font-weight: heavy;
   color: grey;
 }
+
+.text{
+  text-align: right;
+  padding: 20px;
+}
+
+.button-pad{
+  padding: 4px;
+}
+
+.table-pad {
+  padding:10px;
+}
