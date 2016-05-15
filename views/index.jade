@@ -1,0 +1,46 @@
+extends layout
+block content
+  script(src='/jquery/dist/jquery.js')
+  script(src='/bootstrap/dist/js/bootstrap.js')
+  script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js')
+  script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.js')
+  script(src='js/blueimp/blueimp-gallery.js')
+  link(href='http://emojicss.com/emoji.css' rel='stylesheet')
+  link(rel='stylesheet', href='css/blueimp/blueimp-gallery.min.css')
+  link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css')
+  if !user
+    a(href='/auth/facebook'): img(src='/images/login-with-facebook.png' width='154' height='22')
+  else
+    p Hello #{user._json.name}
+  h1 Haave you met Nakul?!
+  i(class='em em-sunglasses')
+  div A fantastic guy to spend time with. I can assure you a life full of fun and surprises as long as you are with him. Below are some interesting facts:
+  div [Please click on the image to see a description.]
+  include gallery.html
+  if user
+    div(ng-app='girlFinder')
+      div(ng-controller='responseController', ng-init='init(#{JSON.stringify(user)}, #{JSON.stringify(response)})')
+        form(ng-submit='createResponseObject()')
+          p Would you be interested in interacting with him? 
+            div
+              label.radio-inline
+                input.radio(type='radio', name='interested', ng-model='response.interested', value='no')
+                span No
+              label.radio-inline
+                input.radio(type='radio', name='interested', ng-model='response.interested', value='yes')
+                span Yes
+
+          p Would you like to ask him anything? 
+            input(type='text', ng-model='response.questions')
+
+          p A short intro of yourself?
+            input(type='textarea', ng-model='response.intro')
+
+          p Go for it: 
+            button.btn-primary(type='button', id='submit', ng-click='createResponseObject()') Good Luck!
+              i(class="em em---1")
+  else
+    p Please login to express interest
+      a(href='/auth/facebook'): img(src='/images/login-with-facebook.png' width='154' height='22')
+  script(src='/js/app.js')
+  script(src='/js/responseController.js')
