@@ -18,12 +18,9 @@ block content
   div [Please click on the image to see a description.]
   include gallery.html
   div
-    li.pull-left Facebook: 
-      a(href='https://www.facebook.com/nakul.chakrapani')
-        https://www.facebook.com/nakul.chakrapani
-    li Linkedin:
-      a(href='https://www.linkedin.com/in/nakul-chakrapani-07979521')
-        https://www.linkedin.com/in/nakul-chakrapani-07979521
+    a(href='https://www.facebook.com/nakul.chakrapani') Facebook
+  div  
+    a(href='https://www.linkedin.com/in/nakul-chakrapani-07979521') Linkedin
   if user
     div(ng-app='girlFinder')
       div(ng-controller='responseController', ng-init='init(#{JSON.stringify(user)}, #{JSON.stringify(response)})')
