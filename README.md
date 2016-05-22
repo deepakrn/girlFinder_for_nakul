@@ -1,7 +1,7 @@
 #Download and extract the code.
 
-cd girlFinder_for_nakul
-npm install --save
+- cd girlFinder_for_nakul
+- npm install --save
 
 #install mongodb and start the mongodb server
 
