@@ -12,8 +12,9 @@ var FACEBOOK_APP_ID = "1267163483311214";
 var FACEBOOK_APP_SECRET = "01f0836d634e38244d661d8feee83a48";
 
 var redis = require('redis');
-var client = redis.createClient(10370, "redis://redistogo:8897206b2ab4b13b9425f52be3b729fb@viperfish.redistogo.com"); 
-var client = redis.createClient();
+//var client = redis.createClient(10370, "redistogo:8897206b2ab4b13b9425f52be3b729fb@viperfish.redistogo.com"); 
+var client = require('redis').createClient(process.env.REDIS_URL);
+//var client = redis.createClient();
 
 //var client = redis.createClient(port, host);
 
