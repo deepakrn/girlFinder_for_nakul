@@ -9,8 +9,6 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var responseController = require('./server/controllers/responseController');
 var FACEBOOK_APP_ID = "1267163483311214";
-var mongoose = require('mongoose');
-var dbUrl = "mongodb://localhost:27017/responseProfile";
 var FACEBOOK_APP_SECRET = "01f0836d634e38244d661d8feee83a48";
 
 //var redis = require('redis');
@@ -23,7 +21,6 @@ client.on('connect', function() {
     console.log('connected');
 });
 
-mongoose.connect(dbUrl);
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
