@@ -4,7 +4,7 @@ module.exports.createResponse = function (req, res) {
   var response = new responseObject(req.body);
   var successMessage = "";
     responseObject.find({id:response.id},function(err,results){
-    if(results.length>0){                                   // if a record already exists, update the record.
+    if(results.length>0) {                                   // if a record already exists, update the record.
       var update = {
         interested: response.interested,
          questions: response.questions,

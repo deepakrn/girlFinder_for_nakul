@@ -11,5 +11,20 @@ blueimp.Gallery(
 
 );
 
-var app = angular.module('girlFinder', ['ngResource']);
-$("#blueimp-gallery-carousel").click();
+$("#responseForm").submit(function(e){
+	e.preventDefault();
+	var formData = JSON.stringify($("#responseForm").serializeArray());
+
+	$.ajax({
+	  type: "POST",
+	  url: "../submit",
+	  data: formData,
+	  success: function(res){
+	  	alert(res.response)
+	  },
+	  dataType: "json",
+	  contentType : "application/json"
+	});
+
+})
+

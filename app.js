@@ -13,6 +13,16 @@ var mongoose = require('mongoose');
 var dbUrl = "mongodb://localhost:27017/responseProfile";
 var FACEBOOK_APP_SECRET = "01f0836d634e38244d661d8feee83a48";
 
+//var redis = require('redis');
+var client = redis.createClient(10370, "redis://redistogo:8897206b2ab4b13b9425f52be3b729fb@viperfish.redistogo.com"); 
+var client = redis.createClient();
+
+//var client = redis.createClient(port, host);
+
+client.on('connect', function() {
+    console.log('connected');
+});
+
 mongoose.connect(dbUrl);
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -79,6 +89,26 @@ app.get('/', function(req, res) {
   }
 });
 
+app.post('/submit', function(req, res){
+  var user = req.user._json.name;
+  var response = JSON.stringify(req.body);
+  console.log(response);
+  console.log(req.user);
+  res.send({response: "Your response was successfully recorded!"});
+  client.hmset('responses', user, response);
+});
+
+app.get('/responses', ensureAuthenticated, function(req, res) {
+    if(req.user._json.name === 'Deepak Nandihalli') {
+      client.hgetall('responses', function(err, object) {
+      console.log("from redis:");
+      console.log(object.length);
+      res.send(object);
+      });
+    } else {
+      res.send({"response" : "You cannot access me!"})
+    }
+  });
 // GET /auth/facebook
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  The first step in Facebook authentication will involve

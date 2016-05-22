@@ -1,5 +1,6 @@
 extends layout
 block content
+  title Meet Nakul
   script(src='/jquery/dist/jquery.js')
   script(src='/bootstrap/dist/js/bootstrap.js')
   script(src='https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js')
@@ -23,13 +24,14 @@ block content
     a(href='https://www.linkedin.com/in/nakul-chakrapani-07979521') Linkedin
   if user
     div(ng-app='girlFinder')
-      div(ng-controller='responseController', ng-init='init(#{JSON.stringify(user)}, #{JSON.stringify(response)})')
-        form(ng-submit='createResponseObject()')
+      div
+        form(action="../submit", method="post", enctype="text/plain", id="responseForm")
           table.table-pad
             tr
               td.text On a scale of 1-10 (10 being highest), please rate his profile!
               td
-                select.form-control
+                select.form-control(form="responseForm", name="rating")
+                  option(value='-1') Select a rating:
                   option(value='1') 1
                   option(value='2') 2
                   option(value='3') 3
@@ -44,32 +46,33 @@ block content
               td.text Would you like to go out for a cup of coffee with him?
               td
                 label.radio-inline
-                  input.radio(type='radio', name='coffee', ng-model='response.coffe', value='no')
+                  input.radio(type='radio', name='coffee', value='no')
                   span No
                 label.radio-inline
-                  input.radio(type='radio', name='coffee', ng-model='response.coffee', value='notSure')
+                  input.radio(type='radio', name='coffee', value='notSure')
                   span Not Sure
                 label.radio-inline
-                  input.radio(type='radio', name='coffee', ng-model='response.coffee', value='maybe')
+                  input.radio(type='radio', name='coffee', value='maybe')
                   span May be
                 label.radio-inline
-                  input.radio(type='radio', name='coffee', ng-model='response.coffee', value='yes')
+                  input.radio(type='radio', name='coffee', value='Yes')
                   span Yes!
             tr
               td.text Would you like to ask him anything? 
               td 
-                textarea.form-control(type='text', ng-model='response.questions')
+                textarea.form-control(type='text', form="responseForm", name="questions")
             tr
               td.text A short intro of yourself?
               td
-                textarea.form-control(type="text", ng-model='response.intro')
+                textarea.form-control(type="text", form="responseForm", name="intro")
+                input(hidden="true", form="responseForm", name="name", value="#{user._json.name}")
+                
             tr
-              td.text Ready to send? 
+              td.text Ready to send?
               td
-                button.btn-primary.button-pad(type='button', id='submit', ng-click='createResponseObject()') Good Luck!
+                button.btn-primary.button-pad(type='submit') Good Luck!
                   i(class="em em---1")
   else
     p Please login to express interest
       a(href='/auth/facebook'): img(src='/images/login-with-facebook.png' width='154' height='22')
   script(src='/js/app.js')
-  script(src='/js/responseController.js')
