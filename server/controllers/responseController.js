@@ -37,15 +37,7 @@ module.exports.createResponse = function (req, res) {
 
 module.exports.fetch_response = function(req, res) {
   console.log("user id while fetching from db:" + req.user.id);
-  responseObject.find({id:req.user.id},function(err,results){
-    if(results.length > 0) {
-      console.log("results:" + JSON.stringify(results[0]));
-      res.render('index',{response: results[0], user: req.user});
-    }
-    else {
-      res.render('index', { response: {}, user:req.user });
-    }
-  })
+  res.render('index', { response: {}, user:req.user });
 }
   
 
